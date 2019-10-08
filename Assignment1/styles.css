@@ -1,0 +1,43 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#name_header {
+    color: white;
+    background-color: rgb(3, 31, 3);
+  }
+
+.center {
+    margin: auto;
+    width: 60%;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+  
+#image img[src="https://image.freepik.com/free-vector/business-woman-character_69773-1.jpg"]{
+    height: auto;
+    width: 70%;
+}
+
+#desc {
+    width:70%
+}
+
+li {
+    font-size: 90%;
+    font-style: oblique;
+    list-style-type: circle;
+}
+
+p {
+    font-style: italic
+}
+
+h3 {
+    color: rgb(8, 70, 8);
+    border: 2px solid #70AD40;
+    border-radius: 10px;
+}
