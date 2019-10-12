@@ -282,18 +282,29 @@
         { name: "Zambia", code: "ZM" },
         { name: "Zimbabwe", code: "ZW" }
       ];
-      
+
+      console.log("List of countries in the world", countries);
       sessionStorage.setItem("countries", JSON.stringify(countries));
 
+      function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
       function randomArr() {
-        viewData = document.querySelector(".content"); //select specific area I want to change display
+        viewData = document.querySelector(".instructions"); //select specific area I want to change display
         const arr50 = [];
         let list = "";
-        for (let i = 0; i < 50; i += 1) {
+        let i = 0;
+        while (i < 50) {
           //will loop through making an array of 50 random country codes
-          temp =
-            countries[Math.floor(Math.random() * countries.length)]["code"];
-          arr50.push(temp);
+          temp = countries[getRandomIntInclusive(0, 242)]["name"];
+          if (arr50.includes(temp) == false) {
+            //prevent any repeat values
+            arr50.push(temp);
+            i += 1;
+          }
         }
 
         for (let i = 0; i < arr50.length; i++) {
