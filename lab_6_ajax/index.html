@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Test AJAX page</title>
+    <link rel="stylesheet" type="text/css" href="./lab_styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="header">Test AJAX page</div>
+        <button class="button" onclick="loadData()">Load Some JSON</button>
+        <div class="content"></div>
+        <div class="footer"></div>
+      </div>
+    </div>
+    <script>
+      function loadData() {
+        fetch("ajax_sample.json")
+          .then(res => res.json()) //converting to array
+          //.then(res => res.map(c => c.code + ": " + c.name))
+          .then(res => {
+            //document.querySelector(".content").innerText = codes;
+            let view = document.querySelector(".content");
+
+            const arr50 = [];
+            let list = "";
+            let i = 0;
+            while (i < 15) {
+              //will loop through making an array of 50 random country codes
+              temp = res[getRandomIntInclusive(0, 242)];
+              tempName = temp["name"];
+              tempCode = temp["code"];
+              tempString = tempCode + ", " + tempName;
+              if (arr50.includes(tempString) == false) {
+                //prevent any repeat values
+                arr50.push(tempString);
+                i += 1;
+              }
+            }
+
+            for (let i = 0; i < arr50.length; i++) {
+              //turns random array into a list so it can be displayed
+              list += "<li>" + arr50[i] + "</li>";
+            }
+
+            view.innerHTML = "<ol>" + list + "</ol>";
+          });
+      }
+
+      function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+    </script>
+  </body>
+</html>
