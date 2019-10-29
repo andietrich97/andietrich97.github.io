@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Test AJAX page</title>
+    <link rel="stylesheet" type="text/css" href="./lab_styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="header">UMD Bus Routes</div>
+        <button class="button" onclick="loadData()">Load Some JSON</button>
+        <div class="content"></div>
+        <div class="footer"></div>
+      </div>
+    </div>
+    <script>
+      function loadData() {
+        fetch("https://api.umd.io/v0/bus/routes")
+          .then(res => {
+            console.log(res);
+            return res;
+          })
+          .then(routes => routes.json())
+          .then(routes => {
+            routeArray = routes.map(i => i.route_id + ": " + i.title); //save array
+            return routes;
+          })
+          .then(routes => {
+            let view = document.querySelector(".content");
+            view.innerHTML = "";
+            let list = "";
+            for (let i = 0; i < routeArray.length; i++) {
+              //turns array into list
+              list += "<li>" + routeArray[i] + "</li>";
+            }
+            view.innerHTML = "<ul>" + list + "</ul>"; //display list on page
+            console.log(routes);
+            return routes;
+          })
+          .then(routes => {
+            changeName = document.querySelector(".header");
+            //console.log(routes);
+            let routeName = routes.find(
+              findName => findName.route_id === "104" //find array value when id is 104
+            );
+            let id = routeName.route_id;
+
+            if (routeName.title.includes(104) == true) {
+              routeName.title = routeName.title.replace(104, ""); //use string matching to edit title
+            }
+
+            name =
+              "UMD Bus Route " + routeName.route_id + " " + routeName.title;
+            changeName.innerHTML = name; //change title displayed
+            return routes;
+          })
+          .then(routes => {
+            console.log(routes);
+          });
+      }
+    </script>
+  </body>
+</html>
