@@ -23,7 +23,20 @@
           })
           .then(routes => routes.json())
           .then(routes => {
-            routeArray = routes.map(i => i.route_id + ": " + i.title); //save array
+            tempRoutes = routes;
+            for (let i = 0; i < tempRoutes.length; i++) {
+              if (
+                tempRoutes[i].title.includes(tempRoutes[i].route_id) == true
+              ) {
+                tempRoutes[i].title = tempRoutes[i].title.replace(
+                  tempRoutes[i].route_id,
+                  ""
+                );
+                //use string matching to edit title
+              }
+            }
+
+            routeArray = tempRoutes.map(i => i.route_id + ": " + i.title); //save array
             return routes;
           })
           .then(routes => {
@@ -44,11 +57,6 @@
             let routeName = routes.find(
               findName => findName.route_id === "104" //find array value when id is 104
             );
-            let id = routeName.route_id;
-
-            if (routeName.title.includes(104) == true) {
-              routeName.title = routeName.title.replace(104, ""); //use string matching to edit title
-            }
 
             name =
               "UMD Bus Route " + routeName.route_id + " " + routeName.title;
