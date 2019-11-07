@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Test AJAX page</title>
+    <link rel="stylesheet" type="text/css" href="./lab_styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="header">API Loader</div>
+        <button class="button" onclick="loadData()">
+          Load Some JSON from a server
+        </button>
+        <div class="content"></div>
+        <div class="footer"></div>
+      </div>
+    </div>
+    <script>
+      function loadData() {
+        console.log("fetch"); // confirm code is running on click
+        fetch("/api")
+          .then(res => res.json())
+          .then(res => {
+            temp = res;
+            console.log(temp); // logging step to check what we got
+
+            infoSci = [];
+            for (let i = 0; i < temp.data.length; i++) {
+              console.log(temp.data[i].dept);
+              if (temp.data[i].dept_id == "INST") {
+                infoSci.push(temp.data[i]);
+              }
+            }
+            infoSciCourses = infoSci.map(i => i.course_id + ": " + i.name);
+            console.log(infoSciCourses);
+            return res;
+          })
+          .then(res => {
+            let view = document.querySelector(".content");
+            view.innerHTML = "";
+            let list = "";
+            for (let i = 0; i < infoSciCourses.length; i++) {
+              //turns array into list
+              list += "<li>" + infoSciCourses[i] + "</li>";
+            }
+            view.innerHTML = "<ol>" + list + "</ol>"; //display list on page
+            console.log(res);
+            return res;
+          });
+      }
+    </script>
+  </body>
+</html>
